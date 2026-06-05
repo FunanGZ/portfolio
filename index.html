@@ -6,19 +6,20 @@
 <title>公子枎楠 · 作品展示</title>
 <style>
   :root {
-    --bg: #0a0a0f;
-    --bg-card: #12121a;
-    --bg-card-hover: #1a1a28;
-    --text: #d0d0d8;
-    --text-dim: #787888;
+    --bg: #06060d;
+    --bg-card: #0e0e1a;
+    --bg-card-hover: #151528;
+    --text: #c8c8d8;
+    --text-dim: #6e6e82;
     --accent: #c9a86c;
-    --accent-dim: #8b7355;
+    --accent-light: #e0c78a;
     --bili: #fb7299;
-    --border: #1e1e2e;
-    --radius: 12px;
-    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --border: #1c1c30;
+    --border-hover: #3a3050;
+    --radius: 14px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
@@ -26,131 +27,235 @@
     line-height: 1.7;
     overflow-x: hidden;
   }
+  /* 星空背景粒子 */
   body::before {
     content: '';
-    position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(ellipse at 30% 20%, rgba(201,168,108,0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 60%, rgba(120,100,160,0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(201,168,108,0.03) 0%, transparent 50%);
-    pointer-events: none; z-index: 0;
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(2px 2px at 15% 8%, rgba(201,168,108,0.5), transparent),
+      radial-gradient(2px 2px at 25% 25%, rgba(180,160,200,0.4), transparent),
+      radial-gradient(1px 1px at 35% 60%, rgba(201,168,108,0.6), transparent),
+      radial-gradient(2px 2px at 55% 15%, rgba(200,180,140,0.4), transparent),
+      radial-gradient(1px 1px at 65% 45%, rgba(180,160,200,0.5), transparent),
+      radial-gradient(2px 2px at 78% 72%, rgba(201,168,108,0.4), transparent),
+      radial-gradient(1px 1px at 88% 10%, rgba(200,180,140,0.5), transparent),
+      radial-gradient(1px 1px at 12% 80%, rgba(180,160,200,0.4), transparent),
+      radial-gradient(2px 2px at 45% 90%, rgba(201,168,108,0.35), transparent),
+      radial-gradient(1px 1px at 92% 55%, rgba(200,180,140,0.45), transparent),
+      radial-gradient(ellipse at 35% 25%, rgba(201,168,108,0.025) 0%, transparent 60%),
+      radial-gradient(ellipse at 65% 55%, rgba(120,100,170,0.02) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 85%, rgba(201,168,108,0.02) 0%, transparent 60%);
   }
 
+  /* 导航 */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,15,0.85); backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(6,6,13,0.82); backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(201,168,108,0.12);
+    transition: background 0.3s;
   }
   .nav-inner {
-    max-width: 1200px; margin: 0 auto; padding: 0 24px;
-    display: flex; align-items: center; justify-content: space-between; height: 60px;
+    max-width: 1260px; margin: 0 auto; padding: 0 28px;
+    display: flex; align-items: center; justify-content: space-between; height: 62px;
   }
-  .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; }
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: color 0.25s; letter-spacing: 0.03em; }
-  .nav-links a:hover { color: var(--accent); }
+  .nav-logo {
+    font-size: 1.25rem; font-weight: 800; color: var(--accent);
+    letter-spacing: 0.06em;
+    background: linear-gradient(135deg, var(--accent-light), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a {
+    color: var(--text-dim); text-decoration: none; font-size: 0.88rem;
+    transition: color 0.25s; letter-spacing: 0.04em; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+    background: var(--accent); transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent-light); }
+  .nav-links a:hover::after { width: 100%; }
 
+  /* Hero */
   .hero {
     position: relative; z-index: 1;
-    min-height: 65vh;
+    min-height: 100vh;
     display: flex; align-items: center; justify-content: center; text-align: center;
-    padding: 120px 24px 80px;
+    padding: 120px 28px 100px;
   }
-  .hero-content { max-width: 700px; }
-  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 16px; line-height: 1.3; }
-  .hero .subtitle { font-size: 1.05rem; color: var(--text-dim); letter-spacing: 0.06em; margin-bottom: 32px; line-height: 1.8; }
-  .hero .divider { width: 60px; height: 2px; background: var(--accent-dim); margin: 0 auto 32px; }
+  .hero-content { max-width: 720px; animation: heroIn 1s ease-out; }
+  @keyframes heroIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 900;
+    letter-spacing: 0.08em; margin-bottom: 18px; line-height: 1.25;
+    background: linear-gradient(135deg, #e0c78a 0%, #c9a86c 40%, #a08050 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero .subtitle {
+    font-size: 1.08rem; color: var(--text-dim); letter-spacing: 0.08em;
+    margin-bottom: 40px; line-height: 1.9;
+  }
+  .hero .divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+    margin: 0 auto 40px;
+  }
   .hero .bili-btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 24px; border-radius: 24px;
-    background: var(--bili); color: #fff; text-decoration: none;
-    font-size: 0.9rem; letter-spacing: 0.04em;
-    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 12px 28px; border-radius: 28px;
+    background: linear-gradient(135deg, #fb7299, #e85d7e);
+    color: #fff; text-decoration: none;
+    font-size: 0.92rem; font-weight: 600; letter-spacing: 0.05em;
+    transition: transform 0.25s, box-shadow 0.25s;
   }
-  .hero .bili-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(251,114,153,0.35); }
+  .hero .bili-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(251,114,153,0.4); }
   .bili-icon { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
-  .scroll-hint { color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.1em; margin-top: 32px; animation: fadeInOut 2.5s ease-in-out infinite; }
-  @keyframes fadeInOut { 0%,100%{opacity:0.3} 50%{opacity:1} }
+  .hero .scroll-hint {
+    color: var(--text-dim); font-size: 0.78rem; letter-spacing: 0.12em;
+    margin-top: 48px; animation: fadeHint 2.5s ease-in-out infinite;
+  }
+  @keyframes fadeHint { 0%,100%{opacity:0.25} 50%{opacity:0.9} }
 
-  section { position: relative; z-index: 1; padding: 80px 24px; }
-  .section-inner { max-width: 1200px; margin: 0 auto; }
-  .section-title { font-size: 1.8rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 8px; }
-  .section-desc { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 48px; letter-spacing: 0.03em; }
+  /* 通用区块 */
+  section { position: relative; z-index: 1; padding: 90px 28px; }
+  .section-inner { max-width: 1260px; margin: 0 auto; }
+  .section-title {
+    font-size: 1.7rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 6px;
+    background: linear-gradient(135deg, #e0d0a0, var(--accent-dim));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+  .section-desc { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 50px; letter-spacing: 0.04em; }
 
-  /* 视觉作品 */
-  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  /* 画廊网格 */
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
   .gallery-item {
     position: relative; border-radius: var(--radius); overflow: hidden; cursor: pointer;
-    aspect-ratio: 16/10; background: var(--bg-card); border: 1px solid var(--border);
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    aspect-ratio: 16/10; background: var(--bg-card);
+    border: 1px solid var(--border);
+    transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
   }
-  .gallery-item:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--accent-dim); }
-  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-  .gallery-item:hover img { transform: scale(1.04); }
+  .gallery-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,108,0.2);
+    border-color: var(--border-hover);
+  }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .gallery-item:hover img { transform: scale(1.05); }
   .gallery-item .overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 45%);
     display: flex; align-items: flex-end; padding: 20px;
-    opacity: 0; transition: opacity 0.3s;
+    opacity: 0; transition: opacity 0.35s;
   }
   .gallery-item:hover .overlay { opacity: 1; }
-  .gallery-item .overlay span { font-size: 0.85rem; color: #fff; letter-spacing: 0.04em; }
-
-  /* 文字作品 */
-  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
-  .work-card {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 28px; cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s;
+  .gallery-item .overlay span {
+    font-size: 0.82rem; color: #fff; letter-spacing: 0.05em;
+    font-weight: 500;
   }
-  .work-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--accent-dim); background: var(--bg-card-hover); }
-  .work-card .tag { display: inline-block; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--accent-dim); color: var(--accent-dim); letter-spacing: 0.04em; margin-bottom: 14px; }
-  .work-card h3 { font-size: 1.15rem; font-weight: 700; color: #e0d8c8; margin-bottom: 10px; letter-spacing: 0.03em; }
-  .work-card .excerpt { font-size: 0.85rem; color: var(--text-dim); line-height: 1.75; }
-  .work-card .meta { margin-top: 16px; font-size: 0.75rem; color: var(--text-dim); opacity: 0.6; }
 
-  /* B站视频区 */
-  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; }
+  /* 视频网格 */
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 26px; }
   .video-card {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
   }
-  .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--bili); }
-  .video-card .video-wrap { position: relative; padding-top: 56.25%; }
+  .video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(251,114,153,0.25);
+    border-color: rgba(251,114,153,0.35);
+  }
+  .video-card .video-wrap { position: relative; padding-top: 56.25%; background: #000; }
   .video-card .video-wrap iframe {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
   }
-  .video-card .video-info { padding: 16px 20px; }
-  .video-card .video-info h3 { font-size: 0.95rem; color: #e0d8c8; letter-spacing: 0.03em; }
+  .video-card .video-info { padding: 15px 20px; }
+  .video-card .video-info h3 { font-size: 0.92rem; color: #d8d0c0; letter-spacing: 0.04em; font-weight: 600; }
+
+  /* 文学作品卡片 */
+  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 22px; }
+  .work-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 30px; cursor: pointer;
+    transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s, background 0.35s;
+    position: relative; overflow: hidden;
+  }
+  .work-card::before {
+    content: ''; position: absolute; top: -1px; left: 20px; right: 20px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,108,0.3), transparent);
+    opacity: 0; transition: opacity 0.35s;
+  }
+  .work-card:hover::before { opacity: 1; }
+  .work-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+  }
+  .work-card .tag {
+    display: inline-block; font-size: 0.7rem; padding: 4px 12px; border-radius: 20px;
+    border: 1px solid rgba(201,168,108,0.35); color: var(--accent-dim);
+    letter-spacing: 0.05em; margin-bottom: 16px; font-weight: 500;
+  }
+  .work-card h3 {
+    font-size: 1.12rem; font-weight: 700; color: #ddd4c0;
+    margin-bottom: 12px; letter-spacing: 0.04em;
+  }
+  .work-card .excerpt { font-size: 0.84rem; color: var(--text-dim); line-height: 1.8; }
+  .work-card .meta { margin-top: 18px; font-size: 0.73rem; color: var(--text-dim); opacity: 0.5; letter-spacing: 0.04em; }
 
   /* Lightbox */
-  .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; }
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.94); align-items: center; justify-content: center; }
   .lightbox.active { display: flex; }
-  .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 4px; box-shadow: 0 8px 60px rgba(0,0,0,0.6); }
-  .lightbox-close { position: absolute; top: 24px; right: 32px; font-size: 2rem; color: #fff; cursor: pointer; transition: opacity 0.2s; line-height: 1; }
-  .lightbox-close:hover { opacity: 0.6; }
+  .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 4px; box-shadow: 0 16px 80px rgba(0,0,0,0.7); }
+  .lightbox-close { position: absolute; top: 28px; right: 36px; font-size: 2.2rem; color: #aaa; cursor: pointer; transition: color 0.2s; line-height: 1; }
+  .lightbox-close:hover { color: #fff; }
 
   /* Modal */
-  .modal { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.85); overflow-y: auto; padding: 40px 20px; }
+  .modal { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); overflow-y: auto; padding: 40px 20px; }
   .modal.active { display: block; }
-  .modal-content { max-width: 800px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; position: relative; }
-  .modal-close { position: absolute; top: 16px; right: 20px; font-size: 1.6rem; color: var(--text-dim); cursor: pointer; transition: color 0.2s; line-height: 1; }
+  .modal-content {
+    max-width: 820px; margin: 0 auto; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: var(--radius); padding: 44px; position: relative;
+  }
+  .modal-close { position: absolute; top: 18px; right: 24px; font-size: 1.6rem; color: var(--text-dim); cursor: pointer; transition: color 0.2s; line-height: 1; }
   .modal-close:hover { color: var(--accent); }
-  .modal-content h2 { font-size: 1.6rem; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.04em; }
-  .modal-content .modal-tag { font-size: 0.78rem; color: var(--accent-dim); margin-bottom: 24px; letter-spacing: 0.04em; }
-  .modal-content .modal-body { font-size: 0.92rem; line-height: 2; color: #c0c0cc; white-space: pre-wrap; max-height: 60vh; overflow-y: auto; padding-right: 8px; }
+  .modal-content h2 { font-size: 1.55rem; color: var(--accent-light); margin-bottom: 8px; letter-spacing: 0.05em; }
+  .modal-content .modal-tag { font-size: 0.78rem; color: var(--accent-dim); margin-bottom: 28px; letter-spacing: 0.05em; }
+  .modal-content .modal-body { font-size: 0.9rem; line-height: 2.1; color: #b8b8cc; white-space: pre-wrap; max-height: 62vh; overflow-y: auto; padding-right: 10px; }
   .modal-content .modal-body::-webkit-scrollbar { width: 4px; }
   .modal-content .modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-  footer { position: relative; z-index: 1; text-align: center; padding: 60px 24px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.05em; }
+  footer {
+    position: relative; z-index: 1; text-align: center;
+    padding: 60px 28px; border-top: 1px solid rgba(201,168,108,0.1);
+    color: var(--text-dim); font-size: 0.78rem; letter-spacing: 0.06em;
+  }
+
+  /* 回到顶部 */
+  .back-top {
+    position: fixed; bottom: 32px; right: 32px; z-index: 99;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--accent-dim); font-size: 1.2rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s; opacity: 0; transform: translateY(20px);
+    pointer-events: none;
+  }
+  .back-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .back-top:hover { border-color: var(--accent); color: var(--accent); }
 
   @media (max-width: 640px) {
-    .nav-links { gap: 16px; }
-    .hero { min-height: 50vh; padding: 100px 20px 60px; }
-    section { padding: 50px 16px; }
+    .nav-links { gap: 14px; font-size: 0.8rem; }
+    .hero { min-height: 80vh; padding: 100px 18px 80px; }
+    section { padding: 60px 18px; }
     .gallery-grid, .works-grid { grid-template-columns: 1fr; }
-    .modal-content { padding: 24px; }
-    .video-card { padding: 28px 20px; }
+    .video-grid { grid-template-columns: 1fr; }
+    .modal-content { padding: 26px; }
   }
 </style>
 </head>
@@ -161,79 +266,80 @@
     <div class="nav-logo">公子枎楠</div>
     <ul class="nav-links">
       <li><a href="#visual">视觉作品</a></li>
-      <li><a href="#gif">GIF 动态</a></li>
+      <li><a href="#gif">动态展示</a></li>
       <li><a href="#video">视频合集</a></li>
-      <li><a href="#writing">文字作品</a></li>
+      <li><a href="#writing">文学作品</a></li>
     </ul>
   </div>
 </nav>
 
+<!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero-content">
     <h1>公子枎楠</h1>
-    <p class="subtitle">视效与文字的交汇，想象力的边界探索</p>
+    <p class="subtitle">视觉特效 · 动态设计 · 文学创作</p>
     <div class="divider"></div>
-    <a class="bili-btn" href="https://www.bilibili.com/video/BV1Us4y1M7KJ/" target="_blank" rel="noopener">
+    <a class="bili-btn" href="#video">
       <svg class="bili-icon" viewBox="0 0 24 24"><path d="M18.223 3.086a1.25 1.25 0 010 1.768L17.08 5.996h1.17A3.75 3.75 0 0122 9.747v7.5a3.75 3.75 0 01-3.75 3.75H5.75A3.75 3.75 0 012 17.247v-7.5a3.75 3.75 0 013.75-3.75h1.166L5.777 4.855a1.25 1.25 0 111.768-1.768l2.013 2.013a9.5 9.5 0 014.896 0l2.013-2.013a1.25 1.25 0 011.768 0h-.012zm-9.723 5.998a.75.75 0 00-.75.75v5.25c0 .414.336.75.75.75h.003a.75.75 0 00.748-.747V9.835a.75.75 0 00-.75-.75h-.001zm4.5 0a.75.75 0 00-.75.75v5.25c0 .414.336.75.75.75h.002a.75.75 0 00.748-.747V9.835a.75.75 0 00-.75-.75h-.002z" fill="currentColor"/></svg>
-      在 Bilibili 观看视频合集
+      观看视频合集
     </a>
     <p class="scroll-hint">▼ 向下浏览</p>
   </div>
 </section>
 
-<!-- ========== 视觉作品 ========== -->
+<!-- ===== 视觉作品 ===== -->
 <section id="visual">
   <div class="section-inner">
     <h2 class="section-title">视觉作品</h2>
-    <p class="section-desc">特效模拟 · 场景渲染 · 动态视觉实验</p>
+    <p class="section-desc">Houdini 特效模拟 · 场景渲染 · 角色展示</p>
     <div class="gallery-grid">
 
-      <div class="gallery-item" onclick="openLightbox('Adela_A.mov_20260605_154958.403.jpg')">
-        <img src="Adela_A.mov_20260605_154958.403.jpg" alt="Adela A" loading="lazy">
-        <div class="overlay"><span>Adela A</span></div>
+      <div class="gallery-item" onclick="openLightbox('Adela_A角色演示.jpg')">
+        <img src="Adela_A角色演示.jpg" alt="Adela A 角色演示" loading="lazy">
+        <div class="overlay"><span>Adela A 角色演示</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('Adela_B_i.mp4_20260605_162629.164.jpg')">
-        <img src="Adela_B_i.mp4_20260605_162629.164.jpg" alt="Adela B" loading="lazy">
-        <div class="overlay"><span>Adela B</span></div>
+      <div class="gallery-item" onclick="openLightbox('Adela_B角色演示.jpg')">
+        <img src="Adela_B角色演示.jpg" alt="Adela B 角色演示" loading="lazy">
+        <div class="overlay"><span>Adela B 角色演示</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('Adela_C_ad.mov_20260605_154734.588.jpg')">
-        <img src="Adela_C_ad.mov_20260605_154734.588.jpg" alt="Adela C 广告" loading="lazy">
-        <div class="overlay"><span>Adela C 广告</span></div>
+      <div class="gallery-item" onclick="openLightbox('Adela_C_角色演示.jpg')">
+        <img src="Adela_C_角色演示.jpg" alt="Adela C 角色演示" loading="lazy">
+        <div class="overlay"><span>Adela C 角色演示</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('Adela_light_r_1_chf3_prob4.mov_20260605_162652.811.jpg')">
-        <img src="Adela_light_r_1_chf3_prob4.mov_20260605_162652.811.jpg" alt="Adela Light" loading="lazy">
-        <div class="overlay"><span>Adela Light</span></div>
+      <div class="gallery-item" onclick="openLightbox('角色闪电.jpg')">
+        <img src="角色闪电.jpg" alt="角色闪电" loading="lazy">
+        <div class="overlay"><span>角色闪电</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('Adela_rain_B.mov_20260605_155016.404.jpg')">
-        <img src="Adela_rain_B.mov_20260605_155016.404.jpg" alt="Adela Rain B" loading="lazy">
-        <div class="overlay"><span>Adela Rain B</span></div>
+      <div class="gallery-item" onclick="openLightbox('角色雨水.jpg')">
+        <img src="角色雨水.jpg" alt="角色雨水" loading="lazy">
+        <div class="overlay"><span>角色雨水</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('bamboo.mov_20260605_154809.915.jpg')">
-        <img src="bamboo.mov_20260605_154809.915.jpg" alt="竹林" loading="lazy">
+      <div class="gallery-item" onclick="openLightbox('竹林.jpg')">
+        <img src="竹林.jpg" alt="竹林" loading="lazy">
         <div class="overlay"><span>竹林</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('tree_rain_4.mov_20260605_162617.289.jpg')">
-        <img src="tree_rain_4.mov_20260605_162617.289.jpg" alt="树雨" loading="lazy">
-        <div class="overlay"><span>树雨</span></div>
+      <div class="gallery-item" onclick="openLightbox('树林.jpg')">
+        <img src="树林.jpg" alt="树林" loading="lazy">
+        <div class="overlay"><span>树林</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('explode2.mov_20260605_154841.837.jpg')">
-        <img src="explode2.mov_20260605_154841.837.jpg" alt="爆炸效果" loading="lazy">
+      <div class="gallery-item" onclick="openLightbox('爆炸.jpg')">
+        <img src="爆炸.jpg" alt="爆炸效果" loading="lazy">
         <div class="overlay"><span>爆炸效果</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('knife_demo2.mp4_20260605_162909.968.jpg')">
-        <img src="knife_demo2.mp4_20260605_162909.968.jpg" alt="刀械演示" loading="lazy">
-        <div class="overlay"><span>刀械演示</span></div>
+      <div class="gallery-item" onclick="openLightbox('火刀.jpg')">
+        <img src="火刀.jpg" alt="火刀" loading="lazy">
+        <div class="overlay"><span>火刀</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('ship_ocean_mesh3_chf3_ahq12.mov_20260605_154904.317.jpg')">
-        <img src="ship_ocean_mesh3_chf3_ahq12.mov_20260605_154904.317.jpg" alt="飞船海洋" loading="lazy">
-        <div class="overlay"><span>飞船海洋</span></div>
+      <div class="gallery-item" onclick="openLightbox('飞船出水.jpg')">
+        <img src="飞船出水.jpg" alt="飞船出水" loading="lazy">
+        <div class="overlay"><span>飞船出水</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('spark_01.mov_20260605_154917.013.jpg')">
-        <img src="spark_01.mov_20260605_154917.013.jpg" alt="火花粒子" loading="lazy">
-        <div class="overlay"><span>火花粒子</span></div>
+      <div class="gallery-item" onclick="openLightbox('打铁花.jpg')">
+        <img src="打铁花.jpg" alt="打铁花" loading="lazy">
+        <div class="overlay"><span>打铁花</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('灭霸传送门.mp4_20260605_154937.148.jpg')">
-        <img src="灭霸传送门.mp4_20260605_154937.148.jpg" alt="灭霸传送门" loading="lazy">
+      <div class="gallery-item" onclick="openLightbox('灭霸传送门.jpg')">
+        <img src="灭霸传送门.jpg" alt="灭霸传送门" loading="lazy">
         <div class="overlay"><span>灭霸传送门</span></div>
       </div>
 
@@ -241,24 +347,24 @@
   </div>
 </section>
 
-<!-- ========== GIF 动态作品 ========== -->
+<!-- ===== 动态展示（GIF） ===== -->
 <section id="gif">
   <div class="section-inner">
-    <h2 class="section-title">GIF 动态作品</h2>
-    <p class="section-desc">特效演示 · 动态预览</p>
+    <h2 class="section-title">动态展示</h2>
+    <p class="section-desc">特效动态预览 · 动画演示</p>
     <div class="gallery-grid">
 
-      <div class="gallery-item" onclick="openLightbox('gif/Adela_A_1_chf3_iris3.gif')">
-        <img src="gif/Adela_A_1_chf3_iris3.gif" alt="Adela A 虹膜" loading="lazy">
-        <div class="overlay"><span>Adela A 虹膜</span></div>
+      <div class="gallery-item" onclick="openLightbox('gif/Adela_A_角色演示.gif')">
+        <img src="gif/Adela_A_角色演示.gif" alt="Adela A 角色" loading="lazy">
+        <div class="overlay"><span>Adela A 角色</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gif/Adela_A_i_clip1.gif')">
-        <img src="gif/Adela_A_i_clip1.gif" alt="Adela A 片段" loading="lazy">
-        <div class="overlay"><span>Adela A 片段</span></div>
+      <div class="gallery-item" onclick="openLightbox('gif/Adela_A_i_角色演示.gif')">
+        <img src="gif/Adela_A_i_角色演示.gif" alt="Adela A 角色 II" loading="lazy">
+        <div class="overlay"><span>Adela A 角色 II</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gif/Adela_C_ad.gif')">
-        <img src="gif/Adela_C_ad.gif" alt="Adela C 广告" loading="lazy">
-        <div class="overlay"><span>Adela C 广告</span></div>
+      <div class="gallery-item" onclick="openLightbox('gif/Adela_C角色.gif')">
+        <img src="gif/Adela_C角色.gif" alt="Adela C 角色" loading="lazy">
+        <div class="overlay"><span>Adela C 角色</span></div>
       </div>
       <div class="gallery-item" onclick="openLightbox('gif/Adela_light.gif')">
         <img src="gif/Adela_light.gif" alt="Adela Light" loading="lazy">
@@ -272,48 +378,48 @@
         <img src="gif/Adela_rain_B.gif" alt="Adela Rain B" loading="lazy">
         <div class="overlay"><span>Adela Rain B</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gif/Timeline 1.gif')">
-        <img src="gif/Timeline%201.gif" alt="时间线" loading="lazy">
-        <div class="overlay"><span>时间线</span></div>
+      <div class="gallery-item" onclick="openLightbox('gif/飞船出水_mesh.gif')">
+        <img src="gif/飞船出水_mesh.gif" alt="飞船出水 Mesh" loading="lazy">
+        <div class="overlay"><span>飞船出水 Mesh</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gif/c.gif')">
-        <img src="gif/c.gif" alt="特效 C" loading="lazy">
-        <div class="overlay"><span>特效 C</span></div>
+      <div class="gallery-item" onclick="openLightbox('gif/飞船出水.gif')">
+        <img src="gif/飞船出水.gif" alt="飞船出水" loading="lazy">
+        <div class="overlay"><span>飞船出水</span></div>
       </div>
       <div class="gallery-item" onclick="openLightbox('gif/dance_c_1.gif')">
         <img src="gif/dance_c_1.gif" alt="舞蹈" loading="lazy">
         <div class="overlay"><span>舞蹈</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gif/explode2.gif')">
-        <img src="gif/explode2.gif" alt="爆炸" loading="lazy">
+      <div class="gallery-item" onclick="openLightbox('gif/爆炸.gif')">
+        <img src="gif/爆炸.gif" alt="爆炸" loading="lazy">
         <div class="overlay"><span>爆炸</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gif/ship_ocean_mesh1_1.gif')">
-        <img src="gif/ship_ocean_mesh1_1.gif" alt="飞船海洋 1" loading="lazy">
-        <div class="overlay"><span>飞船海洋 1</span></div>
+      <div class="gallery-item" onclick="openLightbox('gif/空间站坠落.gif')">
+        <img src="gif/空间站坠落.gif" alt="空间站坠落" loading="lazy">
+        <div class="overlay"><span>空间站坠落</span></div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gif/ship_ocean_mesh3_chf3_ahq12.gif')">
-        <img src="gif/ship_ocean_mesh3_chf3_ahq12.gif" alt="飞船海洋 3" loading="lazy">
-        <div class="overlay"><span>飞船海洋 3</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('gif/smoke111.gif')">
-        <img src="gif/smoke111.gif" alt="烟雾" loading="lazy">
-        <div class="overlay"><span>烟雾</span></div>
+      <div class="gallery-item" onclick="openLightbox('gif/c.gif')">
+        <img src="gif/c.gif" alt="光效" loading="lazy">
+        <div class="overlay"><span>光效</span></div>
       </div>
       <div class="gallery-item" onclick="openLightbox('gif/tree_rain_3.gif')">
         <img src="gif/tree_rain_3.gif" alt="树雨" loading="lazy">
         <div class="overlay"><span>树雨</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('gif/飞船.gif')">
+        <img src="gif/飞船.gif" alt="飞船" loading="lazy">
+        <div class="overlay"><span>飞船</span></div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ========== 视频合集（B站） ========== -->
+<!-- ===== 视频合集（B站） ===== -->
 <section id="video">
   <div class="section-inner">
     <h2 class="section-title">视频合集</h2>
-    <p class="section-desc">Houdini 特效 · 角色展示 · 场景渲染</p>
+    <p class="section-desc">Houdini 特效 · 角色展示 · 场景渲染 · 完整作品</p>
     <div class="video-grid">
 
       <div class="video-card">
@@ -325,9 +431,23 @@
 
       <div class="video-card">
         <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV1t57k6yEwR" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 角色演示其二</h3></div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
           <iframe src="//player.bilibili.com/player.html?bvid=BV1Us4y1M7KJ" loading="lazy" allowfullscreen></iframe>
         </div>
-        <div class="video-info"><h3>公子枎楠 个人 VFX</h3></div>
+        <div class="video-info"><h3>公子枎楠 个人 VFX 合集</h3></div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV1tV7k6LEAn" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 个人作品合集其二</h3></div>
       </div>
 
       <div class="video-card">
@@ -365,18 +485,24 @@
         <div class="video-info"><h3>Houdini 爆炸效果</h3></div>
       </div>
 
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV15u411M721" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 宇宙飞船出水</h3></div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ========== 文字作品 ========== -->
+<!-- ===== 文学作品 ===== -->
 <section id="writing">
   <div class="section-inner">
-    <h2 class="section-title">文字作品</h2>
-    <p class="section-desc">科幻 · 仙侠 · 世界观构建</p>
+    <h2 class="section-title">文学作品</h2>
+    <p class="section-desc">科幻 · 仙侠 · 历史 · 世界观构建</p>
     <div class="works-grid">
 
-      <!-- 寒霜帝歌——顾玄凛全传 -->
       <div class="work-card" onclick="openModalFile('寒霜帝歌——顾玄凛全传','仙侠 · 玄幻','53.7 KB','write a novel/寒霜帝歌——顾玄凛全传.txt')">
         <span class="tag">仙侠 · 玄幻</span>
         <h3>寒霜帝歌——顾玄凛全传</h3>
@@ -384,7 +510,6 @@
         <p class="meta">53.7 KB</p>
       </div>
 
-      <!-- 妙云依传B -->
       <div class="work-card" onclick="openModalFile('妙云依传（青云利剑与冰封帝血）','仙侠 · 修真','43.1 KB','write a novel/妙云依传B.txt')">
         <span class="tag">仙侠 · 修真</span>
         <h3>妙云依传（青云利剑与冰封帝血）</h3>
@@ -392,15 +517,20 @@
         <p class="meta">43.1 KB</p>
       </div>
 
-      <!-- 归墟之影 -->
       <div class="work-card" onclick="openModalFile('归墟之影','科幻 · 宇宙恐怖','42.3 KB','write a novel/归墟之影.txt')">
         <span class="tag">科幻 · 宇宙恐怖</span>
         <h3>归墟之影</h3>
-        <p class="excerpt">「一切终将归于虚无……有序是暂时的涨落，寂灭是永恒的归宿……」灰雾弥漫的空间中，机械残骸、生物遗骨、能量消散后的余烬——无数文明的废墟若隐若现。</p>
+        <p class="excerpt">「一切终将归于虚无……有序是暂时的涨落，寂灭是永恒的归宿……」灰雾弥漫的空间中，机械残骸、生物遗骨——无数文明的废墟若隐若现。</p>
         <p class="meta">42.3 KB</p>
       </div>
 
-      <!-- 小竹峰科技翻车实录 -->
+      <div class="work-card" onclick="openModalFile('不周·裂痕·上郡','历史 · 秦朝','117 KB','不周_裂痕_上郡.txt')">
+        <span class="tag">历史 · 秦朝</span>
+        <h3>不周·裂痕·上郡</h3>
+        <p class="excerpt">荆轲刺秦的余波，并未随那把落空的匕首一同消散。始皇帝的愤怒，如同积郁多年的火山，最终尽数倾泻在燕国故土之上。六国归一，天下一统。一个前所未有的帝国——秦，在血与火的淬炼中，横空出世。</p>
+        <p class="meta">117 KB</p>
+      </div>
+
       <div class="work-card" onclick="openModalText('小竹峰科技翻车实录','短篇 · 轻松向 · 科幻修仙',T1)">
         <span class="tag">短篇 · 轻松向</span>
         <h3>小竹峰科技翻车实录</h3>
@@ -408,7 +538,6 @@
         <p class="meta">部分故事和小场景</p>
       </div>
 
-      <!-- 五维终局 -->
       <div class="work-card" onclick="openModalText('五维终局·其之二：没事，我还有','短篇 · 科幻战斗 · 高概念',T2)">
         <span class="tag">短篇 · 高概念战斗</span>
         <h3>五维终局·其之二：没事，我还有</h3>
@@ -416,7 +545,6 @@
         <p class="meta">部分故事和小场景</p>
       </div>
 
-      <!-- 孟教授的烦恼日常 -->
       <div class="work-card" onclick="openModalText('孟教授的烦恼日常','短篇 · 日常 · 科幻修仙',T3)">
         <span class="tag">短篇 · 轻松日常</span>
         <h3>孟教授的烦恼日常</h3>
@@ -428,13 +556,13 @@
   </div>
 </section>
 
-<!-- 灯箱 -->
+<!-- Lightbox -->
 <div class="lightbox" id="lightbox">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
   <img id="lightbox-img" src="" alt="">
 </div>
 
-<!-- 文字模态 -->
+<!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -444,17 +572,20 @@
   </div>
 </div>
 
+<!-- 回到顶部 -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#9650;</div>
+
 <footer>
   <p>公子枎楠 · 持续创作中</p>
 </footer>
 
 <script>
 // —— 短篇预览全文 ——
-var T1 = "小竹峰科技翻车实录\n\n青云宗，小竹峰，寒玉洞府。洞府内的布置呈现出一种奇妙的融合：东侧是传统的修行陈设——万年寒玉打坐台，青竹香案上摆着凝神静气的冰魄檀香，墙壁上挂着意境悠远的雪山寒梅图。而西侧则全然是另一种画风：一个流光溢彩的全息投影工作台悬浮在半空，台面上浮动着复杂的灵能数据流；墙角立着一台半人高的「多维灵气分析仪」，指示灯有规律地明灭着；书架上除了玉简，还整齐码放着几本用特殊合金封面的《人联-唤灵B联合研究院技术白皮书》。\n\n此刻，洞府的主人，小竹峰峰主妙云依，正盘膝坐在寒玉台边缘，两条腿悬空轻轻晃着——这个极其不「峰主」的坐姿若是被外人看见，怕是要惊掉下巴。她手里捧着一个巴掌大小、表面布满流动着幽蓝光泽玄奥纹路的金属圆盘，正是人联最新配发给高阶修士的「便携式小宇宙发生器（训练版）」。\n\n妙云依的指尖小心翼翼地从那些纹路上拂过，感受着其中精妙到极致的能量结构与信息编码。她那双平日里清冷如寒潭的美眸，此刻闪烁着毫不掩饰的好奇与兴奋光芒。\n\n「以自身意志，无需漫长积累，无需寻觅天然秘境，更无需耗费海量材料布置阵法……便可凭空创造一方完全受控的历练空间……」她低声自语，声音里带着惊叹，「联盟此物，果真神奇。原理似乎是将预设的『环境法则模板』与使用者的『精神力蓝图』结合，通过灵子凝聚态技术瞬间架构出一个临时的亚空间泡……」\n\n她越研究越觉得有趣，一个念头冒了出来：「嗯……正好，悦音那丫头近来修为到了筑基后期瓶颈，常规历练对她压力已然不足。用这个给她加加码，试试她近来长进如何。」\n\n想到就做。妙云依神念微动，依照之前孟舒简单提过的「傻瓜式操作指南」，将一缕冰系灵识注入圆盘核心。\n\n「嗡——」\n\n一声轻微的蜂鸣，圆盘中央射出一道柔和却稳定的微光，在静室中央的空白处迅速展开，形成一个直径约两米、边缘流淌着数据流般光晕的椭圆形「门」。门内并非实体，而是一片涌动着淡蓝色能量的光幕，隐约能感受到其后空间的不稳定波动。\n\n妙云依满意地点点头，清了清嗓子，脸上那饶有兴致的表情瞬间收敛，恢复成平日那副清冷孤高、万事不萦于怀的仙子模样。她对着洞府外传音，声音平静无波，却清晰地传到正在外院练剑的弟子耳中：\n\n「悦音。」\n\n不过三息，一道穿着内门弟子淡青服饰的倩影便快步走入洞府，正是苏悦音。她额角还带着细密的汗珠，显然刚才练剑正酣。见到师尊，她立刻收敛气息，恭敬地躬身行礼：「师尊，弟子在。」\n\n妙云依用下巴指了指静室中央那扇散发着玄奥气息的光门，努力让自己的语气显得高深莫测：「为师观你修为已至瓶颈，寻常历练已难有寸进。此乃我以……嗯……无上妙法，结合对空间法则的些许领悟，为你临时开辟的一处试炼秘境。内里环境特异，有助你磨砺心志，淬炼灵力。入内，坚持一炷香时间，便算你过关。」\n\n苏悦音顺着师尊所指看去，目光触及那光门，立刻感受到其中散发出的精纯而陌生的能量波动。她心中顿时涌起强烈的激动与敬畏——师尊果然深不可测！随手就能开辟秘境，这是何等神通？\n\n「多谢师尊栽培！弟子定不负所望！」苏悦音深吸一口气，压下心中的激动，眼神变得坚定。她再次向妙云依行礼，然后转身，毫不迟疑地一步踏入了那光幕之中。\n\n看着弟子的身影被光幕吞没，妙云依立刻原形毕露。她身形一闪就凑到了悬浮在工作台上的小宇宙发生器主控全息界面面前，清冷的脸上满是跃跃欲试的好奇。\n\n界面上的选项琳琅满目：【环境参数：温度/灵气浓度/重力……】【对手模拟：类型/数量/智能等级……】【能量等级：炼气～化神（可调）】【拟态威压：关闭/低/中/高/极限】【时间流速比：1:1 ~ 10:1】……\n\n「哦？『能量等级』……这个滑钮是干嘛的？还能实时调整？」妙云依伸出纤长的手指，试探性地在那个标着能量等级的虚拟滑钮上左右拨动了一下。\n\n「有点意思……『拟态威压』？听起来很有趣……」她的目光又被另一个选项吸引，「是模拟高阶修士的灵压吗？不知道调到最高是什么感觉……」\n\n她完全没注意到旁边角落里还有一个不停闪烁的【新手引导/使用说明】虚拟按钮，更没去看放在工作台角落那本厚厚的《便携式小宇宙发生器安全操作手册》。此刻的她，凭借着化神期大修士的自信，以及一点点「这玩意儿再神奇也是器物，还能难倒本仙子不成」的心态，目光锁定了那个用醒目的暗红色标注、周围还有一圈警告性闪烁纹路的按钮——\n\n【极限威压模拟（警告：仅限元婴期以上受训者，且需有护法在场）】\n\n「极限？」妙云依眨眨眼，「悦音是筑基后期，距离金丹一步之遥，承受力应该比一般筑基强不少……试试看？反正有发生器本身的保护机制，出不了大事……吧？」\n\n抱着一种混合了科学探索精神（孟舒语）和修仙者式好奇的心态，她的手指在那个红色按钮上，轻轻一点。\n\n光门内部，临时生成的亚空间泡——\n\n苏悦音刚刚穿过光幕，只觉得眼前景象一阵模糊扭曲，随即稳定下来。她发现自己站在一片荒芜的灰色平原上，天空是压抑的暗红色，空气中弥漫着稀薄但异常精纯的灵气。她正想运功适应……\n\n突然！\n\n毫无征兆地，一股难以言喻的、仿佛整个天地都活了过来并以她为敌的恐怖灵能威压，轰然降临！那不是简单的气势压迫，而是更本质的、源于规则层面的「排斥」和「碾压」。她周身的灵气瞬间被抽空，经脉中自行运转的灵力像是撞上了铜墙铁壁，骤然停滞，逆冲而上！五脏六腑仿佛被一只无形巨手狠狠攥住，骨骼发出不堪重负的呻吟。更可怕的是神魂层面的冲击，仿佛有亿万钧重担直接压在她的意识核心上！\n\n这感觉……比她曾经偶然感受过的、师尊在不经意间泄露的一丝怒意还要恐怖十倍！\n\n「呃——！」苏悦音连一声完整的惊叫都未能发出，只觉得眼前一黑，识海震荡，体内灵力彻底失控乱窜，喉头一甜，鲜血尚未喷出，意识便已彻底沉入黑暗。她娇躯一晃，直挺挺地向后倒去，「噗通」一声栽倒在灰色地面上，再无动静。\n\n洞府内——\n\n妙云依正兴致勃勃地看着界面上因她点击而瞬间变化的参数，还期待着能看到弟子在「极限威压」下奋力支撑的顽强表现影像反馈。\n\n然而，下一秒——\n\n「嘀！嘀！嘀！嘀——！！！」\n\n尖锐刺耳的警报声瞬间响彻整个洞府！主控界面上，代表苏悦音生命体征的曲线图如同雪崩般直线下跌，瞬间飙红！一个大大的、不断闪烁的红色警告框弹了出来：\n\n【警告！警告！】【受训者生命体征：危险！】【意识活动：急剧减弱！】【灵力紊乱指数：超标987%！】【建议：立即终止训练！立即实施救援！】\n\n同时，旁边实时显示亚空间泡内部情况的光幕上，清晰无误地反馈出自家宝贝弟子口角溢血、双目紧闭、直接挺躺倒在地的影像。\n\n妙云依：「…………」\n\n她那双总是平静无波的美丽眼眸，此刻瞪得溜圆，红润的小嘴微微张开，整个人僵在了工作台前，仿佛被一道「永寂霜痕」给冻住了。\n\n足足过了三秒钟，一句与她仙子形象截然不符的、充满震惊的感慨，脱口而出：「卧槽！这么猛？！」\n\n话音刚落，她立刻意识到失言，连忙抬起手捂住自己的嘴，那双因为震惊而睁大的眼睛左右飞快地瞥了瞥——尽管洞府里除了她根本没别人。一抹极少出现在她脸上的、淡淡的红晕，以肉眼可见的速度从耳根蔓延开来。\n\n强行镇定！必须甩锅！这不符合本仙子的人设！\n\n她轻咳两声，努力让声音恢复清冷，但语速还是比平时快了一点：「咳咳……罪过罪过，贫道怎可口出秽言！定是……定是平日与孟舒道友交流过多，受其言语影响了！联盟之人，惯常用词便是这般……这般直接！」\n\n自我安慰（甩锅）完毕，她赶紧将注意力转回眼前的「危机」。看着那依旧闪烁不停的红色警报和光幕里不省人事的弟子，妙云依有点慌了。她手忙脚乱地在全息界面上戳来戳去：「停止……停止键呢？刚才启动的那个符文在哪来着？这界面上东西怎么这么多！」她越急越乱，平时练剑时稳定如磐石的手指，此刻在虚拟按键上戳得毫无章法。\n\n情急之下，妙云依眼神一凛，身上寒气微升——她差点就想用最直接的方法：一道冰魄剑气过去，给这个不听话的「铁盘子」来个物理超度，强制关机！\n\n幸好，就在她指尖寒气即将凝聚的刹那，一股温和却庞大精纯到极致的灵能，如同无形的水波般悄然蔓延过来，轻柔而稳定地包裹住了小宇宙发生器。那刺耳的警报声戛然而止，疯狂闪烁的界面也瞬间黯淡下去，中央的光门如同被戳破的泡泡般，无声无息地消散在空气中。\n\n与此同时，一道身着简朴青袍、气息渊渟岳峙的身影，不知何时已静静地站在了洞府门口。苏辰，青云宗宗主，渡劫大能（的分身），正用一种难以言喻的眼神，看着洞府内略显狼藉的景象。\n\n那眼神，复杂极了。包含了三分「果然如此」的了然，三分「我就知道会这样」的无奈，三分「你都是化神期长老、活了几万岁的人了怎么还跟个拿到新玩具就乱按的孩子一样」的深深无力，以及最后一分几乎要溢出来的无语。\n\n「掌门师兄，你来得正好。瞧此物如何？人联新送来的『小宇宙发生器』，一念生秘境，威能……呃，尚可吧？悦音她……嗯，可能是初次接触，有些不适应。」\n\n苏辰没有立刻回答。他先是一抬手，一股柔和的灵力将昏迷不醒、气息微弱的苏悦音从原先光门所在处摄出，平放在寒玉台上。他伸出两指，轻搭在苏悦音腕脉，精纯无比的渡劫期灵力如春风化雨般探入，迅速梳理着她体内乱窜的灵力，抚平震荡的识海，同时喂入一枚散发着沁人心脾药香的温润丹药。\n\n做这一切时，他的动作行云流水，带着一种令人心安的沉稳。做完这些，确保弟子无碍只是需要静养后，他才缓缓转过身，看向妙云依。\n\n「妙云长老。」\n\n「下次摆弄孟小友送来的这些『新奇玩意儿』之前，」他顿了顿，目光意有所指地扫过工作台角落那本崭新的、明显没被翻动过的安全手册，「不妨……先看看说明书。」\n\n妙云依被说得有些讪讪，但嘴上还是不服，小声嘀咕道：「说明书……那等繁琐冗长的凡俗之物，条条框框，岂能束缚吾等求道之心与探索之念……修仙本就是逆天而行，些许风险……呃，罢了罢了。」\n\n她自己也觉得这借口有点牵强，尤其是看着寒玉台上脸色苍白、昏迷不醒的徒弟，那点心虚感更重了。她转移话题，凑到苏辰身边，关切地问：「师兄，悦音她如何了？不会伤到根基吧？」\n\n苏辰检查了一下，淡淡道：「无妨。灵力逆冲，神识受震，服了『定魂养脉丹』，静养三日便可，反倒因祸得福，经脉受你无意中引动的极限威压冲击，拓宽了一丝，瓶颈已有松动迹象。」\n\n妙云依一听，眼睛顿时又亮了起来：「哦？还有这等好处？」她偷瞄了一眼被苏辰灵力封存、静静放在一旁的小宇宙发生器，心里的小算盘又开始啪嗒啪嗒响：「看来这威压训练，效果拔群啊……悦音修为尚浅，承受不住极限。下次……得找个更耐揍的弟子来试试。比如炼体堂那个整天吹嘘自己肉身堪比法宝的傻大个？或者……嗯，孟舒不是说这东西也可以自己进去体验吗？要不本仙子亲自……」\n\n「妙云。」苏辰的声音适时响起，打断了她的危险思路。\n\n苏辰看着她，沉默了片刻，最终只是摇了摇头，留下一句：「悦音暂且安置在你这里观察，本座去前山处理事务。另外，」他指了指那本安全手册，「务必看完。若再有弟子因你『探索道心』而重伤，罚你未来百年所有从联盟领取的新奇器物，均由本座先行保管、检查。」\n\n说完，青影一晃，人已消失在洞府中。\n\n妙云依对着空荡荡的门口做了个小小的鬼脸（确保没人看见），然后走到寒玉台边，看了看呼吸逐渐平稳的徒弟，帮她掖了掖并不存在的被角。\n\n接着，她转过身，目光再次落在那银色的圆盘上。犹豫了零点一秒，她伸手一招，将那本厚厚的《安全操作手册》吸到手中。\n\n翻开第一页，前言写着：「尊敬的用户，为确保您与他人的安全，请务必详细阅读并遵守以下操作规程……」妙云依撇撇嘴，但还是耐着性子看了下去。只是看着看着，她的目光又忍不住飘向那个小宇宙发生器，心里那个「找个耐揍弟子试试」和「自己进去体验一下」的念头，如同春天竹林里的笋子，顽强地冒出了尖。\n\n洞府外，竹涛阵阵。洞府内，一位仙子峰主正对着科技产品手册蹙眉钻研，而一个关于「小竹峰神秘试炼秘境」的传说，即将在未来几天，以某种离奇的方式，在青云宗弟子间悄悄流传开来……\n\n（至于妙云依到底有没有看完手册，以及下一个「幸运」的试炼者是谁，那就是另一个故事了。）";
+var T1 = "小竹峰科技翻车实录\n\n青云宗，小竹峰，寒玉洞府。洞府内的布置呈现出一种奇妙的融合：东侧是传统的修行陈设——万年寒玉打坐台，青竹香案上摆着凝神静气的冰魄檀香，墙壁上挂着意境悠远的雪山寒梅图。而西侧则全然是另一种画风：一个流光溢彩的全息投影工作台悬浮在半空，台面上浮动着复杂的灵能数据流；墙角立着一台半人高的「多维灵气分析仪」，指示灯有规律地明灭着；书架上除了玉简，还整齐码放着几本用特殊合金封面的《人联-唤灵B联合研究院技术白皮书》。\n\n此刻，洞府的主人，小竹峰峰主妙云依，正盘膝坐在寒玉台边缘，两条腿悬空轻轻晃着——这个极其不「峰主」的坐姿若是被外人看见，怕是要惊掉下巴。她手里捧着一个巴掌大小、表面布满流动着幽蓝光泽玄奥纹路的金属圆盘，正是人联最新配发给高阶修士的「便携式小宇宙发生器（训练版）」。\n\n妙云依的指尖小心翼翼地从那些纹路上拂过，感受着其中精妙到极致的能量结构与信息编码。她那双平日里清冷如寒潭的美眸，此刻闪烁着毫不掩饰的好奇与兴奋光芒。\n\n「以自身意志，无需漫长积累，无需寻觅天然秘境，更无需耗费海量材料布置阵法……便可凭空创造一方完全受控的历练空间……」她低声自语，声音里带着惊叹，「联盟此物，果真神奇。原理似乎是将预设的『环境法则模板』与使用者的『精神力蓝图』结合，通过灵子凝聚态技术瞬间架构出一个临时的亚空间泡……」\n\n她越研究越觉得有趣，一个念头冒了出来：「嗯……正好，悦音那丫头近来修为到了筑基后期瓶颈，常规历练对她压力已然不足。用这个给她加加码，试试她近来长进如何。」\n\n想到就做。妙云依神念微动，依照之前孟舒简单提过的「傻瓜式操作指南」，将一缕冰系灵识注入圆盘核心。\n\n「嗡——」\n\n一声轻微的蜂鸣，圆盘中央射出一道柔和却稳定的微光，在静室中央的空白处迅速展开，形成一个直径约两米、边缘流淌着数据流般光晕的椭圆形「门」。门内并非实体，而是一片涌动着淡蓝色能量的光幕，隐约能感受到其后空间的不稳定波动。\n\n妙云依满意地点点头，清了清嗓子，脸上那饶有兴致的表情瞬间收敛，恢复成平日那副清冷孤高、万事不萦于怀的仙子模样。她对着洞府外传音，声音平静无波，却清晰地传到正在外院练剑的弟子耳中：\n\n「悦音。」\n\n不过三息，一道穿着内门弟子淡青服饰的倩影便快步走入洞府，正是苏悦音。她额角还带着细密的汗珠，显然刚才练剑正酣。见到师尊，她立刻收敛气息，恭敬地躬身行礼：「师尊，弟子在。」\n\n妙云依用下巴指了指静室中央那扇散发着玄奥气息的光门，努力让自己的语气显得高深莫测：「为师观你修为已至瓶颈，寻常历练已难有寸进。此乃我以……嗯……无上妙法，结合对空间法则的些许领悟，为你临时开辟的一处试炼秘境。内里环境特异，有助你磨砺心志，淬炼灵力。入内，坚持一炷香时间，便算你过关。」\n\n苏悦音顺着师尊所指看去，目光触及那光门，立刻感受到其中散发出的精纯而陌生的能量波动。她心中顿时涌起强烈的激动与敬畏——师尊果然深不可测！随手就能开辟秘境，这是何等神通？\n\n「多谢师尊栽培！弟子定不负所望！」苏悦音深吸一口气，压下心中的激动，眼神变得坚定。她再次向妙云依行礼，然后转身，毫不迟疑地一步踏入了那光幕之中。\n\n看着弟子的身影被光幕吞没，妙云依立刻原形毕露。她身形一闪就凑到了悬浮在工作台上的小宇宙发生器主控全息界面面前，清冷的脸上满是跃跃欲试的好奇。\n\n界面上的选项琳琅满目：【环境参数：温度/灵气浓度/重力……】【对手模拟：类型/数量/智能等级……】【能量等级：炼气～化神（可调）】【拟态威压：关闭/低/中/高/极限】【时间流速比：1:1 ~ 10:1】……\n\n「哦？『能量等级』……这个滑钮是干嘛的？还能实时调整？」妙云依伸出纤长的手指，试探性地在那个标着能量等级的虚拟滑钮上左右拨动了一下。\n\n「有点意思……『拟态威压』？听起来很有趣……」她的目光又被另一个选项吸引，「是模拟高阶修士的灵压吗？不知道调到最高是什么感觉……」\n\n她完全没注意到旁边角落里还有一个不停闪烁的【新手引导/使用说明】虚拟按钮，更没去看放在工作台角落那本厚厚的《便携式小宇宙发生器安全操作手册》。此刻的她，凭借着化神期大修士的自信，以及一点点「这玩意儿再神奇也是器物，还能难倒本仙子不成」的心态，目光锁定了那个用醒目的暗红色标注、周围还有一圈警告性闪烁纹路的按钮——\n\n【极限威压模拟（警告：仅限元婴期以上受训者，且需有护法在场）】\n\n「极限？」妙云依眨眨眼，「悦音是筑基后期，距离金丹一步之遥，承受力应该比一般筑基强不少……试试看？反正有发生器本身的保护机制，出不了大事……吧？」\n\n抱着一种混合了科学探索精神（孟舒语）和修仙者式好奇的心态，她的手指在那个红色按钮上，轻轻一点。\n\n光门内部，临时生成的亚空间泡——\n\n苏悦音刚刚穿过光幕，只觉得眼前景象一阵模糊扭曲，随即稳定下来。她发现自己站在一片荒芜的灰色平原上，天空是压抑的暗红色，空气中弥漫着稀薄但异常精纯的灵气。她正想运功适应……\n\n突然！\n\n毫无征兆地，一股难以言喻的、仿佛整个天地都活了过来并以她为敌的恐怖灵能威压，轰然降临！那不是简单的气势压迫，而是更本质的、源于规则层面的「排斥」和「碾压」。她周身的灵气瞬间被抽空，经脉中自行运转的灵力像是撞上了铜墙铁壁，骤然停滞，逆冲而上！五脏六腑仿佛被一只无形巨手狠狠攥住，骨骼发出不堪重负的呻吟。\n\n「呃——！」苏悦音连一声完整的惊叫都未能发出，只觉得眼前一黑，识海震荡，体内灵力彻底失控乱窜，喉头一甜，鲜血尚未喷出，意识便已彻底沉入黑暗。她娇躯一晃，直挺挺地向后倒去，「噗通」一声栽倒在灰色地面上，再无动静。\n\n洞府内——\n\n妙云依正兴致勃勃地看着界面上因她点击而瞬间变化的参数，还期待着能看到弟子在「极限威压」下奋力支撑的顽强表现影像反馈。\n\n然而，下一秒——\n\n「嘀！嘀！嘀！嘀——！！！」\n\n尖锐刺耳的警报声瞬间响彻整个洞府！主控界面上，代表苏悦音生命体征的曲线图如同雪崩般直线下跌，瞬间飙红！一个大大的、不断闪烁的红色警告框弹了出来：\n\n【警告！警告！】【受训者生命体征：危险！】【意识活动：急剧减弱！】【灵力紊乱指数：超标987%！】【建议：立即终止训练！立即实施救援！】\n\n妙云依：「…………」\n\n她那双总是平静无波的美丽眼眸，此刻瞪得溜圆，红润的小嘴微微张开，整个人僵在了工作台前。\n\n足足过了三秒钟，一句与她仙子形象截然不符的、充满震惊的感慨，脱口而出：「卧槽！这么猛？！」\n\n话音刚落，她立刻意识到失言，连忙抬起手捂住自己的嘴，那双因为震惊而睁大的眼睛左右飞快地瞥了瞥。一抹极少出现在她脸上的、淡淡的红晕，以肉眼可见的速度从耳根蔓延开来。\n\n她轻咳两声，努力让声音恢复清冷，但语速还是比平时快了一点：「咳咳……罪过罪过，贫道怎可口出秽言！定是……定是平日与孟舒道友交流过多，受其言语影响了！」\n\n自我安慰（甩锅）完毕，她赶紧将注意力转回眼前的「危机」。看着那依旧闪烁不停的红色警报和光幕里不省人事的弟子，妙云依有点慌了：「停止……停止键呢？刚才启动的那个符文在哪来着？这界面上东西怎么这么多！」\n\n情急之下，妙云依眼神一凛，身上寒气微升——她差点就想用最直接的方法：一道冰魄剑气过去，给这个不听话的「铁盘子」来个物理超度！\n\n幸好，就在她指尖寒气即将凝聚的刹那，一股温和却庞大精纯到极致的灵能悄然蔓延过来，轻柔而稳定地包裹住了小宇宙发生器。那刺耳的警报声戛然而止。\n\n一道身着简朴青袍、气息渊渟岳峙的身影，不知何时已静静地站在了洞府门口。苏辰，青云宗宗主，渡劫大能（的分身），正用一种难以言喻的眼神看着她。\n\n那眼神，复杂极了。三分「果然如此」的了然，三分「我就知道会这样」的无奈，三分「你都是化神期长老了怎么还跟个拿到新玩具就乱按的孩子一样」的深深无力，以及最后一分几乎要溢出来的无语。\n\n「掌门师兄，你来得正好。瞧此物如何？人联新送来的『小宇宙发生器』，一念生秘境，威能……呃，尚可吧？」\n\n苏辰没有立刻回答。他先是一抬手，一股柔和的灵力将昏迷不醒的苏悦音摄出，平放在寒玉台上。精纯无比的渡劫期灵力如春风化雨般探入，迅速梳理着她体内乱窜的灵力，抚平震荡的识海，同时喂入一枚丹药。\n\n做完这些后，他才缓缓转过身：「妙云长老。」\n\n「下次摆弄孟小友送来的这些『新奇玩意儿』之前，」他顿了顿，目光意有所指地扫过角落那本崭新的安全手册，「不妨……先看看说明书。」\n\n妙云依被说得有些讪讪，但嘴上还是不服，小声嘀咕道：「说明书……那等繁琐冗长的凡俗之物，条条框框，岂能束缚吾等求道之心……修仙本就是逆天而行，些许风险……罢了罢了。」\n\n苏辰检查了一下苏悦音，淡淡道：「无妨。灵力逆冲，神识受震，服了『定魂养脉丹』，静养三日便可，反倒因祸得福，经脉拓宽了一丝，瓶颈已有松动迹象。」\n\n妙云依一听，眼睛顿时又亮了起来：「哦？还有这等好处？」她心里的小算盘又开始啪嗒啪嗒响：「看来这威压训练效果拔群啊……下次得找个更耐揍的弟子来试试……」\n\n「妙云。」苏辰的声音适时响起，打断了她危险的思路。\n\n苏辰摇了摇头，留下一句：「务必看完手册。若再有弟子因你『探索道心』而重伤，罚你未来百年所有联盟新器物均由本座先行保管。」说完，青影一晃，人已消失。\n\n妙云依对着空荡荡的门口做了个小小的鬼脸，然后走到寒玉台边，看了看呼吸逐渐平稳的徒弟。接着，她转过身，伸手一招，将那本厚厚的《安全操作手册》吸到手中。\n\n翻开第一页，前言写着：「尊敬的用户，为确保您与他人的安全，请务必详细阅读并遵守以下操作规程……」妙云依撇撇嘴，但还是耐着性子看了下去。只是看着看着，她的目光又忍不住飘向那个小宇宙发生器，心里那个「找个耐揍弟子试试」和「自己进去体验一下」的念头，如同春天竹林里的笋子，顽强地冒出了尖。\n\n洞府外，竹涛阵阵。一个关于「小竹峰神秘试炼秘境」的传说，即将在青云宗弟子间悄悄流传开来……\n\n（至于妙云依到底有没有看完手册，以及下一个「幸运」的试炼者是谁，那就是另一个故事了。）";
 
-var T2 = "《五维终局·其之二：没事，我还有》\n\n【接前场景】\n\n归墟寂主的意志化身在经历了那微不可察的「规则卡顿」后，似乎并未受到本质影响。相反，那短暂的异常仿佛触发了某种更深层的应对协议。祂周身缭绕的、代表「万物终寂」的法则纹路骤然明亮起来，如同被激怒的黑暗星河，开始以前所未有的强度沸腾、扩张。\n\n五维空间本身发出了不堪重负的哀鸣。流淌的信息长河开始冻结、板结，化为苍白僵硬的固体；闪烁的可能性波涛被强行抚平，只留下一条名为「寂灭」的单一干涸河床；连构成联军立足点的「存在区域」根基，都开始像风化的砂岩般层层剥离、消散。\n\n苏辰闷哼一声，嘴角溢出淡金色的道血。他身后那由荒古大世界本源支持的星河法相剧烈明灭，无数「星辰」剑意接连崩碎。他面色前所未有的凝重，眼中闪过一丝决绝——那是准备燃烧这具真身本源，乃至引动唤灵B宇宙部分根基，行玉石俱焚之法的征兆。\n\n妙云依的「冰晶永恒领域」已经收缩到身周十丈，领域壁障上爬满了蛛网般的黑色裂痕，那是被「终末」法则侵蚀的痕迹。她持剑的手稳如磐石，但微微颤抖的剑尖和更加苍白的脸色，昭示着她已接近极限。她眼神冰冷决绝，青蒿剑发出悲鸣般的颤音，似乎在呼唤最后的、不顾一切的一击。\n\n飘渺宗剑修凌霄子，人联高维物理学家艾琳娜博士，魔族公主璃月，皆已气息萎靡，伤痕累累，几乎到了油尽灯枯的边缘。绝望，如同归墟寂主带来的寒意，悄然渗入每个人的心中。\n\n就在这千钧一发、所有人都准备迎接最终湮灭的时刻——\n\n「滴答。」\n\n一声轻微的、仿佛水滴落入平静湖面的提示音，在孟舒那包裹着头部的多功能战术目镜内侧响起。\n\n他脸上那因为「规则奇点」哑火而残留的麻木和尴尬，如同被橡皮擦抹去的铅笔痕迹，瞬间消失得无影无踪。取而代之的，是一种极度锐利、高度专注、甚至带着点「实验终于进入关键阶段」的兴奋光芒。他完全无视了外界那毁天灭地的压迫感，瞳孔中倒映着瀑布般刷新的数据流，手指在身前无形的虚拟操控界面上快得带起了残影。\n\n「备用方案A：『逻辑悖论炸弹』，否决，当前环境信息熵太高，容易引发不可控递归坍缩……」他低声自语，语速极快，「方案B：『高维相位折叠矛』，能量需求……啧，灵能反应堆输出上限差37%，PASS……」\n\n他的手指划过几个复杂的授权界面：「最终用户许可协议第47版……跳过，跳过，我已阅读并同意所有条款……伦理委员会临时禁令？战时特别条例附件三覆盖了，权限通过……好了！」\n\n就在归墟寂主的「袖里乾坤」威能积蓄到顶点、即将彻底碾碎联军最后防线的前一瞬，孟舒再次抬起了手。\n\n这一次，他掌心浮现的，不再是光华内敛的能量球。\n\n那是一个仿佛由「虚无」本身裁剪而成的、巴掌大小的透明多边形薄膜。\n\n它薄得不可思议，几乎不存在「厚度」这个概念，边缘呈现出一种非欧几里得几何的微妙弧度。它没有散发任何光芒、热量、灵力波动或信息辐射，安静得仿佛只是空间本身的一道疤痕。然而，正是这种绝对的「安静」与「虚无」，在周围狂暴沸腾的法则乱流映衬下，显得格外诡异和……令人心悸。\n\n孟舒的眼神平静得如同在实验室介绍某种新型材料的特性，语气甚至带着点公式化的平淡：\n\n「寂主，刚才那个是『拓朴学上帝之眼』，免费试用版，主要功能是后台解析与嵌入。」他轻轻托着那片透明的薄膜，如同托着一片羽毛，又像托着一枚即将启动的宇宙炸弹。\n\n「现在这个，」他顿了顿，目光穿透薄膜，似乎看向了归墟寂主那法则缭绕的核心，「是VIP专属定制，需要消耗我本季度全部特殊资源配额，并签署了十七条风险告知书才申请到的原型机。——『灵基二向箔·试做型零号』，启动。」\n\n他没有像之前那样用力掷出，而是做了一个极其轻柔、甚至带着点仪式感的动作——将那片透明的薄膜，如同放置一枚珍贵的标本切片，轻轻「贴」在了他身前的五维空间基底上。\n\n「嗡————」\n\n一声低沉到几乎超越感知极限的、仿佛宇宙琴弦被拨动基音的震颤，以那薄膜为中心扩散开来。不是声音，而是空间结构本身发出的「呻吟」。\n\n下一秒，令所有目睹者永生难忘的景象发生了。\n\n那片透明的薄膜，并没有爆炸、燃烧或释放冲击波。它就像一滴拥有绝对渗透力的奇异溶剂，悄然无声地「融化」进了它接触到的五维空间之中。\n\n紧接着，以那个接触点为中心，一种无法用言语准确描述的「变化」开始发生。\n\n不是破坏，不是吞噬，而是……「熨平」。\n\n仿佛有一只无形无质、却拥有绝对规则的巨手，拿着一个看不见的、温度无限高的熨斗，开始将周围的一切——狂暴的法则乱流、凝滞的信息长河、板结的可能性固体、乃至空间结构本身——向内、向下，进行强制性的「降维熨烫」！\n\n「这……这是什么神通？！」妙云依失声惊呼，清冷的声音里第一次带上了无法掩饰的惊骇。她骇然发现，自己那已收缩到极致的「冰晶永恒领域」，其最外层的边缘，正在发生可怕的变化——正在失去「厚度」的概念，被迅速「画」成一幅绝对扁平的「冰晶领域图画」！\n\n「大道……正在被简化？！」苏辰的震惊更甚。他感受到的冲击直达道基——一切的多维展开性正在遭受不可逆的剥夺，就像一幅精妙的三维全息图被强行压成了一张二维照片！\n\n而首当其冲的归墟寂主，其反应最为剧烈。\n\n祂那由「终末寂静」法则凝聚的宏伟化身，如同被烧红的烙铁烫上的黄油，开始平坦化。\n\n「不可能！！！」\n\n归墟寂主那始终冰冷、恒定的意念，第一次发出了清晰的、充满难以置信惊骇的剧烈波动！\n\n「这是……降维打击？！纯粹的维度跌落！？汝……汝为何能执掌如此权柄？！此乃创世之初划定疆界、终焉之时归拢残响的至高法则之一！非生灵可驭！非文明可及！」\n\n祂感受到的，不是力量上的压制，而是存在形式的降格！祂的「袖里乾坤」神通，其核心在于对「状态」的「归档」，前提是需要有多维的、丰富的「状态」可供归档。而当祂自身以及祂神通作用的环境，都在被强制「熨平」成二维时，「归档」本身都失去了意义——一张纸上的图案，还能被「归档」到哪里去？\n\n就在联军众人为这逆转而震惊时，处于风暴眼相对平静区域的孟舒，却进入了另一种状态。\n\n他完全沉浸在了观测和数据记录中。战术目镜内侧，各项指标疯狂刷新，他的呼吸因为兴奋而略显急促，但操作依旧稳定精准。\n\n「灵芸，全频段记录！」他低声快速说道，「维度坍缩速率：每秒3.7个普朗克长度（五维等效值），超出理论模型预测峰值0.7%……空间曲率在二维边界处出现狄拉克尖峰……妙啊！看那归墟寂主的法则纹路二维化后的图案，呈现出曼德博集合的分形特征！这说明了什么？说明其法则底层编码可能具有自相似迭代结构！」\n\n他甚至抽空对旁边处于极度震惊中的妙云依和苏辰解释了一句：「二位别怕，这是可控降维，作用范围我预设了边界阈值，理论上不会把我们都『画』进去……理论上。」\n\n然后，他继续对灵芸惊叹：「乖乖，这玩意儿劲儿真大……『灵基』前缀不是白加的，它对灵子这种能量-信息混合体的降维效率比针对纯物质高出一个数量级！记录，记录！所有数据都是宝贝！这回的论文够我发到宇宙热寂了！」\n\n他这边沉浸在科研的狂热中，那边归墟寂主却陷入了诞生以来最大的危机与困惑。祂那扁平化的部分化身，在二维平面上徒劳地「扭动」，试图重组或突破，却发现所有试图恢复「高度」的努力，都如同试图让一幅画里的墨水站起来一样徒劳。\n\n而「灵基二向箔」那平静却无可阻挡的「熨平」边界，依然在缓慢而坚定地朝着祂的核心蔓延。\n\n战场的天平，以一种谁也没有预料到的方式，开始倾斜。\n\n孟舒推了推并不存在的眼镜（战术目镜），看着眼前这超越想象的壮观景象，嘴角终于勾起一抹如释重负又充满成就感的微笑。\n\n「所以说，」他轻声总结，像是在完成实验报告的最后陈述，「永远要有个备用方案。尤其是……当你的对手看起来免疫常规攻击的时候。」\n\n「科学，有时候就是找到那个正确的『维度』去解决问题。」\n\n他看向脸色依旧有些发白、但眼神已从决绝转为极度惊奇的妙云依和苏辰，眨了眨眼：\n\n「现在，我们或许可以谈谈……怎么让这位『寂主』坐下来，好好听我们讲讲道理了？毕竟，在二维平面上，『谈判』可能会变得……比较直接。」";
+var T2 = "《五维终局·其之二：没事，我还有》\n\n【接前场景】\n\n归墟寂主的意志化身在经历了那微不可察的「规则卡顿」后，似乎并未受到本质影响。相反，那短暂的异常仿佛触发了某种更深层的应对协议。祂周身缭绕的、代表「万物终寂」的法则纹路骤然明亮起来，如同被激怒的黑暗星河，开始以前所未有的强度沸腾、扩张。\n\n五维空间本身发出了不堪重负的哀鸣。流淌的信息长河开始冻结、板结；闪烁的可能性波涛被强行抚平，只留下一条名为「寂灭」的单一干涸河床；连构成联军立足点的「存在区域」根基，都开始像风化的砂岩般层层剥离、消散。\n\n苏辰闷哼一声，嘴角溢出淡金色的道血。他身后那由荒古大世界本源支持的星河法相剧烈明灭，无数「星辰」剑意接连崩碎。他面色前所未有的凝重，眼中闪过一丝决绝——那是准备燃烧这具真身本源，行玉石俱焚之法的征兆。\n\n妙云依的「冰晶永恒领域」已经收缩到身周十丈，领域壁障上爬满了蛛网般的黑色裂痕。她持剑的手稳如磐石，但微微颤抖的剑尖和更加苍白的脸色，昭示着她已接近极限。\n\n飘渺宗剑修凌霄子，人联高维物理学家艾琳娜博士，魔族公主璃月，皆已气息萎靡，伤痕累累。绝望，如同归墟寂主带来的寒意，悄然渗入每个人的心中。\n\n就在这千钧一发、所有人都准备迎接最终湮灭的时刻——\n\n「滴答。」\n\n一声轻微的、仿佛水滴落入平静湖面的提示音，在孟舒那包裹着头部的多功能战术目镜内侧响起。\n\n他脸上那因为「规则奇点」哑火而残留的麻木和尴尬，如同被橡皮擦抹去的铅笔痕迹，瞬间消失得无影无踪。取而代之的，是一种极度锐利、高度专注的兴奋光芒。他完全无视了外界那毁天灭地的压迫感，瞳孔中倒映着瀑布般刷新的数据流，手指在身前无形的虚拟操控界面上快得带起了残影。\n\n「备用方案A：『逻辑悖论炸弹』，否决，当前环境信息熵太高……方案B：『高维相位折叠矛』，能量需求差37%，PASS……」\n\n「最终用户许可协议第47版……跳过，我已阅读并同意所有条款……伦理委员会临时禁令？战时特别条例附件三覆盖了，权限通过……好了！」\n\n就在归墟寂主的「袖里乾坤」威能积蓄到顶点、即将彻底碾碎联军最后防线的前一瞬，孟舒再次抬起了手。\n\n这一次，他掌心浮现的，不再是光华内敛的能量球。\n\n那是一个仿佛由「虚无」本身裁剪而成的、巴掌大小的透明多边形薄膜。\n\n它薄得不可思议，几乎不存在「厚度」这个概念，边缘呈现出一种非欧几里得几何的微妙弧度。它没有散发任何光芒、热量、灵力波动或信息辐射，安静得仿佛只是空间本身的一道疤痕。\n\n孟舒的眼神平静得如同在实验室介绍某种新型材料：\n\n「寂主，刚才那个是『拓朴学上帝之眼』，免费试用版。」他轻轻托着那片透明的薄膜，「现在这个，是VIP专属定制——『灵基二向箔·试做型零号』，启动。」\n\n他做了一个极其轻柔的动作——将那片透明的薄膜，轻轻「贴」在了身前的五维空间基底上。\n\n「嗡————」\n\n一声低沉到几乎超越感知极限的震颤。不是声音，而是空间结构本身发出的「呻吟」。\n\n下一秒，令所有目睹者永生难忘的景象发生了。\n\n那片透明的薄膜，就像一滴拥有绝对渗透力的奇异溶剂，悄然无声地「融化」进了五维空间之中。\n\n不是破坏，不是吞噬，而是——「熨平」。\n\n仿佛有一只无形无质的巨手，拿着一个温度无限高的熨斗，开始将周围的一切——法则乱流、信息长河、可能性固体、空间结构本身——进行强制性的「降维熨烫」！\n\n「这……这是什么神通？！」妙云依失声惊呼。她骇然发现，自己的「冰晶永恒领域」正在失去「厚度」，被迅速「画」成一幅绝对扁平的图画！\n\n「大道……正在被简化？！」苏辰的震惊更甚。一切的多维展开性正在遭受不可逆的剥夺——就像一幅三维全息图被强行压成了一张二维照片！\n\n而首当其冲的归墟寂主——\n\n「不可能！！！」\n\n祂那始终冰冷恒定的意念，第一次发出了充满难以置信惊骇的剧烈波动！\n\n「这是……降维打击？！纯粹的维度跌落！？非生灵可驭！非文明可及！」\n\n祂感受到的，不是力量上的压制，而是存在形式的降格！当祂自身都在被强制「熨平」成二维时，「归档」本身都失去了意义——一张纸上的图案，还能被「归档」到哪里去？\n\n处于风暴眼中的孟舒，却完全沉浸在了观测和数据记录中：\n\n「灵芸，全频段记录！维度坍缩速率超出理论模型0.7%……妙啊！看那归墟寂主的法则纹路二维化后的图案，呈现出曼德博集合的分形特征！说明其法则底层编码可能具有自相似迭代结构！」\n\n他甚至抽空对妙云依和苏辰解释了一句：「二位别怕，这是可控降维，理论上不会把我们都『画』进去……理论上。」\n\n「乖乖，这玩意儿劲儿真大……『灵基』前缀不是白加的！记录，记录！所有数据都是宝贝！这回的论文够我发到宇宙热寂了！」\n\n归墟寂主陷入了诞生以来最大的危机。祂那扁平化的部分化身，在二维平面上徒劳地「扭动」，所有试图恢复「高度」的努力，都如同试图让一幅画里的墨水站起来一样徒劳。\n\n战场的天平，以一种谁也没有预料到的方式，开始倾斜。\n\n孟舒推了推并不存在的眼镜，嘴角终于勾起一抹如释重负又充满成就感的微笑：\n\n「所以说，永远要有个备用方案。尤其是……当你的对手看起来免疫常规攻击的时候。」\n\n「科学，有时候就是找到那个正确的『维度』去解决问题。」\n\n他看向脸色依旧有些发白、但眼神已从决绝转为极度惊奇的妙云依和苏辰，眨了眨眼：\n\n「现在，我们或许可以谈谈……怎么让这位『寂主』坐下来，好好听我们讲讲道理了？」";
 
-var T3 = "《孟教授的烦恼日常》后续：前辈的「关爱」与学生的「惊喜」\n\n场景延续：泛宇宙同盟最高科学院，孟舒办公室\n\n看着自动门无声滑闭，将卡兰那充满朝气（且无知无畏）的背影隔绝在外，孟舒如同被抽空了脊椎骨般，彻底瘫在了他那张由记忆海绵和自适应灵能场构成的「符合人体工学与道法自然」的高级办公椅上。\n\n他仰头望着天花板上模拟出的宁静星空投影，眼神空洞，仿佛刚刚不是送走一个学生，而是亲手放生了一头披着科研热情外衣的、名为「麻烦」的太古凶兽。\n\n「半灵腺苷和半灵碱腺苷……这都能搞混……方老师当年要是我敢犯这种错误，怕不是得把我挂在实验室门口风干示众……」孟舒喃喃自语，手指无意识地敲击着扶手，发出轻微的「嗒嗒」声，那是他高度紧张后试图放松的神经质表现。\n\n「教授，」灵芸那带着一丝人性化笑意的电子音适时响起，如同在安抚一只炸毛的猫，「根据过往数据，卡兰博士候选人的理论模型构建能力在同届中排名前5%，想象力指数更是达到97百分位。他只是缺乏对灵基物质『危险美感』的直观认知。此次实地调研，或许正是他所需的『感性教育』。」\n\n「感性教育？」孟舒有气无力地哼了一声，「我怕他直接给我来个『灵能版达尔文奖』现场教学。月华隐纹藤……那玩意儿是那么好采的？成熟期的藤蔓自带『虚实转换』特性，隐匿于月光与灵雾之间，对非唤灵B本土的灵觉或科技探测有极强干扰性。更别说它旁边通常伴生着『噬法影蛾』，那东西对非本土的灵力波动和奇异的能量场敏感得很……」\n\n他仿佛已经看到了画面：卡兰举着个格格不入的能量探测器，在益丰城外的山林里瞎转悠，惊动了一群噬法影蛾，然后被追得抱头鼠窜，最后不小心触发某个残留的古代禁制或者惊动了某个闭关的散修……接着，青云宗的巡山弟子赶到，事情一层层上报，最终传到苏辰和妙云依耳朵里。\n\n「完了……」孟舒捂住脸，「以苏前辈那洞若观火的性子，还有妙仙子那表面清冷实则记性超好的脾气……他们绝对能一眼看出这小子身上那股子『人联科学院』的愣头青味儿，顺藤摸瓜……」\n\n就在这时，他面前一个不起眼的、装饰成古朴砚台模样的通讯器，突然自行亮起了温润的玉色光芒，并开始有规律地明灭——这是最高优先级的跨界加密通讯请求，且编码格式他熟悉得不能再熟悉。\n\n孟舒身体一僵，脖子如同生锈的齿轮般，一格一格地转向那闪烁的「砚台」。他脸上那生无可恋的表情，瞬间被一种混合了「果然来了」、「吾命休矣」以及最后一丝侥幸的复杂神色取代。\n\n他深吸一口气，整理了一下其实并不凌乱的研究袍，努力让表情恢复平静，甚至挤出一丝「惊喜」的笑容，然后才伸手激活了通讯器。\n\n一道清晰的全息影像投射在办公桌上方。影像中的人，青袍玉冠，面容温润，眼神平和深邃，仿佛能包容星海，正是青云宗宗主苏辰。他并非身处庄严肃穆的大殿，而是在一片紫竹摇曳、云雾缭绕的亭中，似乎正在品茗。\n\n「孟小友，许久不见，别来无恙？」苏辰的声音通过通讯器传来，温和依旧，听不出任何异样，甚至带着淡淡的笑意。\n\n孟舒心中警铃大作——越是平静，越可能暗藏「杀机」。他赶紧拱手，脸上堆起笑容：「苏前辈！劳您挂念，晚辈一切安好！前辈风采更胜往昔，看来唤灵B如今也是风调雨顺，可喜可贺！不知前辈突然联系，有何指教？」\n\n苏辰轻轻放下手中的玉杯，抬眼看向「孟舒」，那目光仿佛能穿透维度阻隔，直接落在孟舒强装镇定的脸上。\n\n「指教不敢当。只是方才，本座偶然神游太虚，感应到紫霄大陆益丰城附近，似乎有一缕极其微弱的、与寻常修士迥异的灵机扰动，其波动频率……嗯，颇有几分当年孟小友初临唤灵B时，身上那些『新奇玩意儿』的风采。」苏辰语气平和，如同在谈论天气，「此灵机似乎对『月华隐纹藤』颇感兴趣，正绕着那片山谷打转。本座唯恐是哪位不明就里的域外道友，误触了此地的一些……小小布置，或是惊扰了那些性子不算温和的伴生灵虫，故而特来询问孟小友一声。」\n\n他顿了顿，嘴角的笑意似乎加深了那么一丝丝：「毕竟，孟小友如今是同盟科学院栋梁，交游广阔。不知是否……有故人门生，或是合作同僚，近日对唤灵B的灵植生态，起了些研究兴致？」\n\n孟舒：「……」后背瞬间渗出冷汗。\n\n果然！就知道瞒不过！苏辰这哪里是「偶然神游太虚」，分明是镇守一界的渡劫大能对自家地盘风吹草动的绝对掌控！\n\n「这个……这个……」孟舒大脑飞速运转，冷汗都快滴下来了，「前辈法眼如炬，明察秋毫……实不相瞒，晚辈门下确实新收了一个……呃……求知若渴、但略微缺乏实践经验的年轻学者。他对于灵基物质的环境适应性课题十分着迷，晚辈便想着让他去唤灵B这灵植宝库见识见识……没想到他行事如此……毛躁，竟惊动了前辈清修，实在是晚辈教导无方，惭愧，惭愧！」\n\n他一边说，一边在心里把卡兰骂了一万遍，并决定等这小子回来，毕业论文的审核标准直接提到地狱难度。\n\n苏辰闻言，了然地点了点头，脸上并无责怪之意，反而显得更加温和：「原来如此。年轻人锐意进取，是好事。只是唤灵B如今虽与同盟接轨，但一些古地的规矩和潜在风险，外界未必尽知。孟小友也是用心良苦。」\n\n他话锋轻轻一转：「既然是小友的门生，那便不是外人。本座已传讯附近巡山弟子，暗中照拂一二，确保其安全无虞，也不会打扰其『研究』。至于那月华隐纹藤的样本，以及完整的灵化周期数据……」苏辰微微一笑，「小竹峰的藏书阁和灵植园中，恰好有历代先贤整理的、颇为详尽的典籍与留影，年份从十年到三千年不等。若小友需要，本座可让云衣复制一份，通过加密信道传送过去，也省得你那学生漫山遍野摸索，平添风险。」\n\n孟舒：「！！！」\n\n他瞬间明白了。苏辰不仅发现了卡兰，还早就安排好了！这哪里是「照拂」，分明是「监视」加「包办」！连数据都直接给准备好，还是小竹峰珍藏版！这面子给得也太足了……但同时也意味着，他孟舒派学生偷偷摸摸回去「调研」的小动作，在人家眼里跟透明的一样。\n\n一股暖意和更深的尴尬同时涌上心头。暖的是前辈的体贴与照顾，尴尬的是自己那点小心思被看得透透的。\n\n「前辈……这……这如何使得！太麻烦妙仙子了！也太过叨扰前辈了！」孟舒连忙摆手，脸都有些发热。\n\n「无妨。」苏辰笑容温和，「云衣近日正好在整理那些陈年玉简，顺手之事。况且，你那学生若真在山中乱闯，惊动了某些沉睡的老家伙，或是误入了『靠山宗』那位老祖闲暇时布下的小小『游戏场』，反而更添麻烦。此事就这么定了。」\n\n「至于孟小友你，」苏辰的目光似乎意有所指地扫过孟舒身后那些堆积如山的样本和闪烁的仪器，「科研之道，固需专注，但亦需张弛有度。同盟事务繁杂，小友身兼数职，莫要过于劳神。若有闲暇，不妨回来看看。张浩那小子前几日还念叨，说他新酿的『百果灵浆』又失败了，想请你去品鉴（背锅）一番。」\n\n孟舒哭笑不得，心里那点因为学生莽撞而起的焦虑，被苏辰这番连消带打、既给足帮助又隐含调侃的「关爱」弄得烟消云散，只剩下满满的无奈和暖意。\n\n「前辈厚爱，晚辈感激不尽！待手头这几个项目告一段落，定当回去叨扰！那张浩的酒……晚辈一定『好好』品鉴！」孟舒这回的笑容真诚了许多。\n\n「甚好。」苏辰含笑点头，影像开始微微波动，「数据稍后便至。代我向方旭院士问好。保重。」\n\n通讯结束。\n\n孟舒呆坐了几秒钟，然后长长地、长长地吐出一口气，整个人又瘫回了椅子，但这次是放松的瘫。\n\n「灵芸……」他幽幽道。\n\n「在，教授。」\n\n「给卡兰那小子发条加密信息。」孟舒揉了揉眉心，「告诉他，样本和数据会有『热心道友』直接提供，让他立刻停止一切野外作业，原地待命，会有青云宗的『导游』去接他，带他进行为期三天的『唤灵B基础生态与安全规范速成培训』。培训结束，带着人家给的东西，立刻、马上、麻溜地给我滚回来！一刻也不许多待！」\n\n「另外，」孟舒补充，眼神里闪过一丝「危险」的光芒，「他回来后，第一个任务是把《唤灵B常见灵植与伴生危险生物图鉴（同盟科学院增补版）》抄写一百遍。第二个任务，是分析对比小竹峰提供的月华隐纹藤数据和他自己采集的数据之间的误差，写一篇不低于五万字的误差分析报告。我要看到他对『感性认知缺失导致的理论模型偏差』有刻骨铭心的理解！」\n\n「明白，教授。」灵芸的声音带着一丝同情（对卡兰），「信息已发送。另外，小竹峰的数据包已接收，解密中……数据完整度100%，附带妙云依长老的简短备注：『藤蔓样本已随附，三千年份一株，慎用。另：下次派学生，记得先发个通知。——云衣』」\n\n孟舒看着那行清冷简短但信息量巨大的备注，仿佛能透过文字看到妙云依那副淡然中带着一丝无语的表情。他忍不住笑了出来，摇了摇头。\n\n得，这回人情欠大发了。三千年份的月华隐纹藤……这玩意儿在同盟科学院能换多少资源配额啊。\n\n他关掉备注，目光落在办公室一角那个安静运作的「道韵神水」合成反应釜上。釜内流光溢彩，仿佛有微型星河在流转。\n\n「算了，不想了。」孟舒站起身，活动了一下筋骨，「还是去伺候我的『神水』吧。至少它不会给我整出这种让人折寿的幺蛾子。」\n\n他走向实验室，步伐重新变得稳健，只是嘴里还在低声嘀咕：\n\n「不过话说回来……靠山宗老祖的『游戏场』？苏前辈这是在暗示什么？难道那位老祖又在自家山头埋了什么『惊喜』？啧，得提醒卡兰，离靠山宗的地盘远点，越远越好……」\n\n他的身影消失在实验室门后，只留下办公室里，全息投影上那些复杂的分子结构依旧无声旋转，闪烁着科学与神秘交织的光芒。\n\n而远在唤灵B的卡兰，刚刚收到导师那条措辞严厉、充满感叹号的指令，正茫然地站在益丰城外的山坡上，看着远处天边一道优雅的青色剑光正朝着他所在的方向，不紧不慢地飞来……\n\n（卡兰的「惊喜」唤灵B之旅，才刚刚开始。）";
+var T3 = "《孟教授的烦恼日常》后续：前辈的「关爱」与学生的「惊喜」\n\n场景延续：泛宇宙同盟最高科学院，孟舒办公室\n\n看着自动门无声滑闭，将卡兰那充满朝气（且无知无畏）的背影隔绝在外，孟舒如同被抽空了脊椎骨般，彻底瘫在了他那张由记忆海绵和自适应灵能场构成的「符合人体工学与道法自然」的高级办公椅上。\n\n他仰头望着天花板上模拟出的宁静星空投影，眼神空洞，仿佛刚刚不是送走一个学生，而是亲手放生了一头披着科研热情外衣的、名为「麻烦」的太古凶兽。\n\n「半灵腺苷和半灵碱腺苷……这都能搞混……方老师当年要是我敢犯这种错误，怕不是得把我挂在实验室门口风干示众……」孟舒喃喃自语，手指无意识地敲击着扶手。\n\n「教授，」灵芸那带着一丝人性化笑意的电子音适时响起，「根据过往数据，卡兰博士候选人的理论模型构建能力在同届中排名前5%，想象力指数更是达到97百分位。他只是缺乏对灵基物质『危险美感』的直观认知。」\n\n「感性教育？」孟舒有气无力地哼了一声，「我怕他直接给我来个『灵能版达尔文奖』现场教学。月华隐纹藤……那玩意儿是那么好采的？成熟期的藤蔓自带『虚实转换』特性，更别说旁边通常伴生着『噬法影蛾』……」\n\n他仿佛已经看到了画面：卡兰举着个格格不入的能量探测器，在山林里瞎转悠，惊动了一群噬法影蛾，被追得抱头鼠窜，最后不小心触发某个残留的古代禁制……接着，青云宗的巡山弟子赶到，事情一层层上报，最终传到苏辰和妙云依耳朵里。\n\n「完了……」孟舒捂住脸，「以苏前辈那洞若观火的性子，还有妙仙子那表面清冷实则记性超好的脾气……他们绝对能一眼看出这小子身上那股子『人联科学院』的愣头青味儿……」\n\n就在这时，他面前一个不起眼的、装饰成古朴砚台模样的通讯器，突然自行亮起了温润的玉色光芒——这是最高优先级的跨界加密通讯请求。\n\n孟舒身体一僵。他脸上那生无可恋的表情，瞬间被一种混合了「果然来了」、「吾命休矣」以及最后一丝侥幸的复杂神色取代。\n\n他深吸一口气，努力挤出一丝「惊喜」的笑容，然后才伸手激活了通讯器。\n\n一道清晰的全息影像投射在办公桌上方。影像中的人，青袍玉冠，面容温润，眼神平和深邃，正是青云宗宗主苏辰。他正在一片紫竹摇曳、云雾缭绕的亭中品茗。\n\n「孟小友，许久不见，别来无恙？」苏辰的声音温和依旧，甚至带着淡淡的笑意。\n\n孟舒心中警铃大作——越是平静，越可能暗藏「杀机」。他赶紧拱手：「苏前辈！劳您挂念，晚辈一切安好！不知前辈突然联系，有何指教？」\n\n苏辰轻轻放下手中的玉杯：「指教不敢当。只是方才，本座偶然神游太虚，感应到益丰城附近似乎有一缕极其微弱的灵机扰动，其波动频率……颇有几分当年孟小友初临唤灵B时，身上那些『新奇玩意儿』的风采。」\n\n他顿了顿，嘴角的笑意似乎加深了那么一丝丝：「不知是否……有故人门生，近日对唤灵B的灵植生态起了些研究兴致？」\n\n孟舒：「……」后背瞬间渗出冷汗。\n\n果然！苏辰这哪里是「偶然神游太虚」，分明是渡劫大能对自家地盘风吹草动的绝对掌控！\n\n「这个……这个……」孟舒大脑飞速运转，「前辈法眼如炬……实不相瞒，晚辈门下确实新收了一个求知若渴、但略微缺乏实践经验的年轻学者……没想到他行事如此毛躁，竟惊动了前辈清修……」\n\n他一边说，一边在心里把卡兰骂了一万遍。\n\n苏辰了然地点了点头，脸上并无责怪之意：「原来如此。既然是小友的门生，那便不是外人。本座已传讯附近巡山弟子，暗中照拂一二。至于那月华隐纹藤的样本……小竹峰的藏书阁和灵植园中，恰好有历代先贤整理的详尽典籍与留影，年份从十年到三千年不等。本座可让云衣复制一份，传送过去，也省得你那学生漫山遍野摸索。」\n\n孟舒：「！！！」\n\n他瞬间明白了。苏辰不仅发现了卡兰，还早就安排好了！连数据都直接给准备好，还是小竹峰珍藏版！\n\n「前辈……这如何使得！太麻烦妙仙子了！」\n\n「无妨。」苏辰笑容温和，「云衣近日正好在整理陈年玉简，顺手之事。此事就这么定了。」\n\n「至于孟小友你，」苏辰话锋一转，「科研之道，固需专注，但亦需张弛有度。若有闲暇，不妨回来看看。张浩那小子前几日还念叨，说他新酿的『百果灵浆』又失败了，想请你去品鉴一番。」\n\n孟舒哭笑不得，心里那点焦虑被苏辰这番连消带打、既给足帮助又隐含调侃的「关爱」弄得烟消云散。\n\n「前辈厚爱，晚辈感激不尽！待项目告一段落，定当回去叨扰！」\n\n「甚好。」苏辰含笑点头，「代我向方旭院士问好。保重。」\n\n通讯结束。\n\n孟舒呆坐了几秒钟，然后长长地吐出一口气，整个人又瘫回了椅子，但这次是放松的瘫。\n\n「灵芸……给卡兰那小子发条加密信息。告诉他，样本和数据会有『热心道友』直接提供，让他立刻停止一切野外作业，原地待命。会有青云宗的『导游』去接他，进行为期三天的『唤灵B基础生态与安全规范速成培训』。培训结束，带着人家给的东西，立刻、马上、麻溜地给我滚回来！」\n\n「另外，」孟舒眼神里闪过一丝「危险」的光芒，「他回来后，把《唤灵B常见灵植与伴生危险生物图鉴》抄写一百遍。然后写一篇不低于五万字的误差分析报告。我要看到他对『感性认知缺失导致的理论模型偏差』有刻骨铭心的理解！」\n\n「明白，教授。」灵芸的声音带着一丝同情，「信息已发送。另外，小竹峰的数据包已接收。附带妙云依长老的简短备注：『藤蔓样本已随附，三千年份一株，慎用。另：下次派学生，记得先发个通知。——云衣』」\n\n孟舒看着那行清冷简短但信息量巨大的备注，忍不住笑了出来，摇了摇头。\n\n得，这回人情欠大发了。三千年份的月华隐纹藤……这玩意儿在同盟科学院能换多少资源配额啊。\n\n「算了，不想了。」孟舒站起身，「还是去伺候我的『神水』吧。至少它不会给我整出这种让人折寿的幺蛾子。」\n\n他的身影消失在实验室门后。而远在唤灵B的卡兰，刚刚收到导师那条措辞严厉、充满感叹号的指令，正茫然地站在益丰城外的山坡上，看着远处天边一道优雅的青色剑光正朝着他所在的方向，不紧不慢地飞来……\n\n（卡兰的「惊喜」唤灵B之旅，才刚刚开始。）";
 
 // —— 灯箱 ——
 function openLightbox(src) {
@@ -470,7 +601,7 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
   if (e.target === this) closeLightbox();
 });
 
-// —— 从文件加载的模态（长篇独立小说） ——
+// —— 文件加载模态 ——
 function openModalFile(title, tag, size, file) {
   document.getElementById('modal-title').textContent = title;
   document.getElementById('modal-tag').textContent = tag + ' · ' + size;
@@ -489,7 +620,7 @@ function openModalFile(title, tag, size, file) {
   });
 }
 
-// —— 直接嵌入文本的模态（短篇） ——
+// —— 嵌入文本模态 ——
 function openModalText(title, tag, text) {
   document.getElementById('modal-title').textContent = title;
   document.getElementById('modal-tag').textContent = tag;
@@ -510,12 +641,20 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') { closeLightbox(); closeModal(); }
 });
 
+// —— 平滑滚动 ——
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   a.addEventListener('click', function(e) {
     e.preventDefault();
     var el = document.querySelector(this.getAttribute('href'));
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   });
+});
+
+// —— 回到顶部 ——
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('backTop');
+  if (window.scrollY > 600) { btn.classList.add('show'); }
+  else { btn.classList.remove('show'); }
 });
 </script>
 </body>
