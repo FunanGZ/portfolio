@@ -109,24 +109,19 @@
   .work-card .meta { margin-top: 16px; font-size: 0.75rem; color: var(--text-dim); opacity: 0.6; }
 
   /* B站视频区 */
-  .video-section { text-align: center; padding: 100px 24px; }
-  .video-section .section-inner { max-width: 700px; }
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; }
   .video-card {
     background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 40px 32px; margin-top: 40px;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
   }
-  .video-card:hover { border-color: var(--bili); box-shadow: 0 4px 24px rgba(251,114,153,0.15); }
-  .video-card h3 { font-size: 1.2rem; color: #e0d8c8; margin-bottom: 12px; letter-spacing: 0.04em; }
-  .video-card p { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 24px; line-height: 1.8; }
-  .video-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 28px; border-radius: 24px;
-    background: var(--bili); color: #fff; text-decoration: none;
-    font-size: 0.92rem; letter-spacing: 0.04em;
-    transition: transform 0.2s, box-shadow 0.2s;
+  .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--bili); }
+  .video-card .video-wrap { position: relative; padding-top: 56.25%; }
+  .video-card .video-wrap iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
   }
-  .video-link:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(251,114,153,0.35); }
+  .video-card .video-info { padding: 16px 20px; }
+  .video-card .video-info h3 { font-size: 0.95rem; color: #e0d8c8; letter-spacing: 0.03em; }
 
   /* Lightbox */
   .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; }
@@ -318,14 +313,58 @@
 <section id="video">
   <div class="section-inner">
     <h2 class="section-title">视频合集</h2>
-    <p class="section-desc">完整动态作品集，在 Bilibili 观看</p>
-    <div class="video-card">
-      <h3>作品合集视频</h3>
-      <p>以上视觉作品均为动态视频的静帧截图。完整的动画、特效与场景渲染合集已上传至 Bilibili，点击下方按钮前往观看。</p>
-      <a class="video-link" href="https://www.bilibili.com/video/BV1Us4y1M7KJ/" target="_blank" rel="noopener">
-        <svg class="bili-icon" viewBox="0 0 24 24"><path d="M18.223 3.086a1.25 1.25 0 010 1.768L17.08 5.996h1.17A3.75 3.75 0 0122 9.747v7.5a3.75 3.75 0 01-3.75 3.75H5.75A3.75 3.75 0 012 17.247v-7.5a3.75 3.75 0 013.75-3.75h1.166L5.777 4.855a1.25 1.25 0 111.768-1.768l2.013 2.013a9.5 9.5 0 014.896 0l2.013-2.013a1.25 1.25 0 011.768 0h-.012zm-9.723 5.998a.75.75 0 00-.75.75v5.25c0 .414.336.75.75.75h.003a.75.75 0 00.748-.747V9.835a.75.75 0 00-.75-.75h-.001zm4.5 0a.75.75 0 00-.75.75v5.25c0 .414.336.75.75.75h.002a.75.75 0 00.748-.747V9.835a.75.75 0 00-.75-.75h-.002z" fill="currentColor"/></svg>
-        前往 Bilibili 观看
-      </a>
+    <p class="section-desc">Houdini 特效 · 角色展示 · 场景渲染</p>
+    <div class="video-grid">
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV1TeBuBvE5v" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 角色展示</h3></div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV1Us4y1M7KJ" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>公子枎楠 个人 VFX</h3></div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV1QP411777e" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 灭霸传送门</h3></div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV1RdTFz8ESg" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 恐龙肌肉模拟展示</h3></div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV127qtYREqc" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 渲染小动画</h3></div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV11sSXBSE9H" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 古法手搓雨中树林</h3></div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="//player.bilibili.com/player.html?bvid=BV13WSqYdE2h" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="video-info"><h3>Houdini 爆炸效果</h3></div>
+      </div>
+
     </div>
   </div>
 </section>
